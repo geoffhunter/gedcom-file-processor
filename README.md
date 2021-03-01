@@ -1,6 +1,6 @@
 # gedcom_file_processor
 
-A utility to produce lists of individuals, families and children, from a GEDCOM format file. These lists are used by the FamilyTreeReporter, FamilyTreeWebsiteBuilder and FamilyTreeSplitter utilities.
+A utility to produce lists of individuals, families and children, from a GEDCOM format file. These lists are used by the gedcom-reporter, gedcom-website-builder and gedcom-splitter utilities.
 
 Overview
 
@@ -8,7 +8,7 @@ This utility allows the user to produce lists of individuals, families and child
 
 Modules
 
-GEDCOMFileProcessor.pyw
+gedcom-file-processor.pyw
 
 The main module. This module presents the user with a Windows user interface, allowing them to edit parameters, and process a GEDCOM format file.
 
