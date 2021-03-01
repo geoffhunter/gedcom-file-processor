@@ -14,7 +14,7 @@ The main module. This module presents the user with a Windows user interface, al
 
 Parameters used in this package are:
 
-GED File	The name of the GEDCOM format file to be processed. The file should be in the location where the utility runs.
+GED File: The name of the GEDCOM format file to be processed. The file should be in the location where the utility runs.
 
 ged_lib.py
 
@@ -26,11 +26,11 @@ save_params writes parameter values to params.txt.
 
 edit_params presents the user with a user interface to edit parameters.
 
-process_ged_file reads the GEDCOM file specified as a parameter and produces Individuals.txt, Families.txt and Children.txt containing lists of individuals, families and children, with attributes.
+process_ged_file reads the GEDCOM file specified as a parameter and produces individuals.txt, families.txt and children.txt containing lists of individuals, families and children, with attributes.
 
-read_individuals reads Individuals.txt into the ‘individuals’ list.
+read_individuals reads individuals.txt into the ‘individuals’ list.
 
-write_individuals writes the ‘individuals’ list to Individuals.txt.
+write_individuals writes the ‘individuals’ list to individuals.txt.
 
 add_individual writes an individual to the ‘individuals’ list.
 
@@ -40,18 +40,18 @@ get_birth_date returns the year of birth of the individual (id passed as a param
 
 get_family_where_child returns the id of the family where the individual (id passed as a parameter) is a child.
 
-read_families reads Families.txt into the ‘families’ list.
+read_families reads families.txt into the ‘families’ list.
 
 add_family writes a family to the ‘families’ list.
 
-write_families writes the ‘families’ list to Families.txt.
+write_families writes the ‘families’ list to families.txt.
 
 get_father_id returns the id of the husband in the family where the individual (id passed as a parameter) is a child.
 
 get_mother_id returns the id of the wife in the family where the individual (id passed as a parameter) is a child.
 
-read_children reads Children.txt into the ‘children’ list.
+read_children reads children.txt into the ‘children’ list.
 
 add_child writes a child to the ‘children’ list.
 
-write_children writes the ‘children’ list to Children.txt.
+write_children writes the ‘children’ list to children.txt.
