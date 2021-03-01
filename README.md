@@ -8,7 +8,7 @@ This utility allows the user to produce lists of individuals, families and child
 
 Modules
 
-•	GEDCOMFileProcessor.pyw
+GEDCOMFileProcessor.pyw
 
 The main module. This module presents the user with a Windows user interface, allowing them to edit parameters, and process a GEDCOM format file.
 
@@ -16,7 +16,7 @@ Parameters used in this package are:
 
 GED File	The name of the GEDCOM format file to be processed. The file should be in the location where the utility runs.
 
-•	ged_lib.py
+ged_lib.py
 
 This module contains parameter variables and lists used by other modules and the following subroutines:
 
