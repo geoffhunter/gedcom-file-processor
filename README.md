@@ -8,7 +8,7 @@ This utility allows the user to produce lists of individuals, families and child
 
 Modules
 
-gedcom-file-processor.pyw
+gedcom_file_processor.pyw
 
 The main module. This module presents the user with a Windows user interface, allowing them to edit parameters, and process a GEDCOM format file.
 
