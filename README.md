@@ -4,7 +4,7 @@ A utility to produce lists of individuals, families and children, from a GEDCOM 
 
 Overview
 
-This utility allows the user to produce lists of individuals, families and children, from a GEDCOM format file.
+This utility allows the user to produce lists of individuals, families and children, from a GEDCOM format file. The lists are output as tilde (~) delimited text files.
 
 Modules
 
