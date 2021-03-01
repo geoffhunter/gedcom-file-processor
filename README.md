@@ -1,4 +1,4 @@
-# gedcom_file_processor
+# gedcom-file-processor
 
 A utility to produce lists of individuals, families and children, from a GEDCOM format file. These lists are used by the gedcom-reporter, gedcom-website-builder and gedcom-splitter utilities.
 
