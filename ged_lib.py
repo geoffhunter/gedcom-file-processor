@@ -3,8 +3,6 @@ from tkinter import *
 def process_ged_file():
 #    print("Processing GED File")
     get_params()
-#    c_families = 0
-#    c_children = 0
     
     individual_id = 0
     surname = ""
@@ -217,7 +215,7 @@ ind_column_heading = ["Tag", "IndividualID", "Surname", "Forename(s)", "Name", "
                   "Sex"]
 
 def read_individuals():
-    file = open('Individuals.txt','r')
+    file = open('individuals.txt','r')
     individuals.clear()
     s = file.readline()
     i = 0
@@ -244,7 +242,7 @@ def add_individual( \
         burial_date, burial_place, family_where_child, family_where_spouse, sex))
 
 def write_individuals():
-    file = open('Individuals.txt','w')
+    file = open('individuals.txt','w')
     line = ""
     for i in range(len(ind_column_heading)):
         line = line + ind_column_heading[i]  + '~'
@@ -311,7 +309,7 @@ families = []
 fam_column_heading = ["Tag", "FamilyID", "Husband", "Wife", "Marriage Date", "Marriage Place"]
 
 def read_families():
-    file = open('Families.txt','r')
+    file = open('families.txt','r')
     families.clear()
     s = file.readline()
     add_family("", 0, 0, 0, "", "")
@@ -329,7 +327,7 @@ def add_family(tag, family_id, husband_id, wife_id, marriage_date, marriage_plac
     families.append(families_class(tag, family_id, husband_id, wife_id, marriage_date, marriage_place))
 
 def write_families():
-    file = open('Families.txt','w')
+    file = open('families.txt','w')
     line = ""
     for i in range(len(fam_column_heading)):
         line = line + fam_column_heading[i]  + '~'
@@ -373,7 +371,7 @@ children = []
 chi_column_heading = ["FamilyID", "ChildID", "Tag"]
 
 def read_children():
-    file = open('Children.txt','r')
+    file = open('children.txt','r')
     children.clear()
     s = file.readline()
     add_child(0, 0, "")
@@ -391,7 +389,7 @@ def add_child(family_id, child_id, tag):
     children.append(children_class(family_id, child_id, tag))
 
 def write_children():
-    file = open('Children.txt','w')
+    file = open('children.txt','w')
     line = ""
     for i in range(len(chi_column_heading)):
         line = line + chi_column_heading[i]  + '~'
