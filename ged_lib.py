@@ -207,7 +207,7 @@ class individuals_class(object):
         self.family_where_spouse = family_where_spouse
         self.sex = sex
         
-individuals = []
+individuals = {}
 
 ind_column_heading = ["Tag", "IndividualID", "Surname", "Forename(s)", "Name", "Birth Date", "Birth Place", \
                   "Baptism Date", "Baptism Place", "Marriage Date", "Marriage Place", "Death Date", \
@@ -226,6 +226,8 @@ def read_individuals():
         if s == '':
             break
         x = s.split("~")
+        if (x[1]) == '':
+            continue
         add_individual(x[0], int(x[1]), x[2],  x[3],  x[4],  x[5],  x[6],  x[7], \
                        x[8], x[9], x[10], x[11], x[12], x[13], x[14], int(x[15]), int(x[16]), x[17])
         i = i + 1
@@ -236,7 +238,7 @@ def add_individual( \
         tag, individual_id, surname, forename, name, birth_date, birth_place, \
         baptism_date, baptism_place, marriage_date, marriage_place, death_date, death_place, \
         burial_date, burial_place, family_where_child, family_where_spouse, sex):
-    individuals.append(individuals_class( \
+    individuals[individual_id] = (individuals_class( \
         tag, individual_id, surname, forename, name, birth_date, birth_place, \
         baptism_date, baptism_place, marriage_date, marriage_place, death_date, death_place,  \
         burial_date, burial_place, family_where_child, family_where_spouse, sex))
@@ -249,7 +251,7 @@ def write_individuals():
     line = line[0:len(line)-1]        
     file.write(line + '\n')
 
-    for i in range(1,len(individuals)):
+    for i in individuals:
         line = individuals[i].tag + "~"
         line = line + str(individuals[i].individual_id) + "~"
         line = line + individuals[i].surname + "~"
@@ -275,18 +277,26 @@ def write_individuals():
 #    print("Written " + str(len(individuals)-1) + " individuals")
 
 def get_person_name(id):
+    if not id in individuals.keys():
+        return "I" + str(id)
     n = individuals[id].surname + ", " + individuals[id].forename
     return n.strip()
 
 def get_birth_year(id):
+    if not id in individuals.keys():
+        return ""
     bd = individuals[id].birth_date
     bd = bd[-4:]
     return "b. " + bd
 
 def get_family_where_child(id):
+    if not id in individuals.keys():
+        return 0
     return individuals[id].family_where_child
 
 def get_name(i):
+    if not i in individuals.keys():
+        return "I" + str(i)
     name = individuals[i].forename
     surname = individuals[i].surname
     if name != '' and surname != '':
@@ -303,8 +313,9 @@ class families_class(object):
         self.wife_id = wife_id
         self.marriage_date = marriage_date
         self.marriage_place = marriage_place
+        self.child_ids = []
 
-families = []
+families = {}
 
 fam_column_heading = ["Tag", "FamilyID", "Husband", "Wife", "Marriage Date", "Marriage Place"]
 
@@ -319,12 +330,14 @@ def read_families():
         if s == '':
             break
         x = s.split("~")
+        if (x[1]) == '':
+            continue
         add_family(x[0], int(x[1]), int(x[2]), int(x[3]), x[4], x[5])
 
 #    print("Read " + str(len(families)-1) + " families")
     
 def add_family(tag, family_id, husband_id, wife_id, marriage_date, marriage_place):
-    families.append(families_class(tag, family_id, husband_id, wife_id, marriage_date, marriage_place))
+    families[family_id] = (families_class(tag, family_id, husband_id, wife_id, marriage_date, marriage_place))
 
 def write_families():
     file = open('families.txt','w')
@@ -334,7 +347,7 @@ def write_families():
     line = line[0:len(line)-1]        
     file.write(line + '\n')
 
-    for i in range(1,len(families)):
+    for i in families:
         line = families[i].tag + "~"
         line = line + str(families[i].family_id) + "~"
         line = line + str(families[i].husband_id) + "~"
@@ -366,7 +379,7 @@ class children_class(object):
         self.child_id = child_id
         self.tag = tag
 
-children = []
+children = {}
 
 chi_column_heading = ["FamilyID", "ChildID", "Tag"]
 
@@ -381,12 +394,16 @@ def read_children():
         if s == '':
             break
         x = s.split("~")
+        if (x[1]) == '':
+            continue
         add_child(int(x[0]), int(x[1]), "")
 
 #    print("Read " + str(len(children)-1) + " children")
     
 def add_child(family_id, child_id, tag):
-    children.append(children_class(family_id, child_id, tag))
+    children[child_id] = (children_class(family_id, child_id, tag))
+    if family_id in families.keys():
+        families[family_id].child_ids.append(child_id)
 
 def write_children():
     file = open('children.txt','w')
@@ -396,7 +413,7 @@ def write_children():
     line = line[0:len(line)-1]        
     file.write(line + '\n')
 
-    for i in range(1,len(children)):
+    for i in children:
         line = str(children[i].family_id) + "~"
         line = line + str(children[i].child_id) + "~"
         line = line + str(children[i].tag)
@@ -556,4 +573,4 @@ def edit_params():
 
     root.mainloop()
     
-process_ged_file()
+#process_ged_file()
