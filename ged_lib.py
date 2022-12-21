@@ -1,10 +1,10 @@
 from tkinter import *
 
 def process_ged_file():
-#    print("Processing GED File")
     get_params()
+    print("Processing GED File:", ged_file_name)
     
-    individual_id = 0
+    individual_id = -1
     surname = ""
     forename = ""
     name = ""
@@ -22,9 +22,9 @@ def process_ged_file():
     family_where_spouse = ""
     sex = ""
     
-    family_id = 0
-    husband_id = 0
-    wife_id = 0
+    family_id = -1
+    husband_id = -1
+    wife_id = -1
     
     individuals.clear()
     add_individual("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
@@ -33,7 +33,7 @@ def process_ged_file():
     children.clear()
     add_child("", "", "")
     
-    child_id = 0
+    child_id = -1
 
     gfile = open(ged_file_name, "r")
 
@@ -47,7 +47,7 @@ def process_ged_file():
         c1 = s[:1]
         if c1 == "0":
             if have_record:
-                if individual_id != 0:
+                if individual_id != -1:
                     name = forename
                     if name != "": name = name + " "
                     name = name + surname
@@ -56,12 +56,12 @@ def process_ged_file():
                                        death_date, death_place, burial_date, burial_place, \
                                        family_where_child, family_where_spouse, sex)
                     have_record = False
-                if family_id != 0:
+                if family_id != -1:
                     add_family("N", family_id, husband_id, wife_id, marriage_date, marriage_place)
                     have_record = False
             record_type = s[-4:]
             if record_type == "INDI" or record_type == " FAM":
-                individual_id = 0
+                individual_id = -1
                 surname = ""
                 forename = ""
                 birth_date = ""
@@ -74,12 +74,12 @@ def process_ged_file():
                 marriage_place = ""
                 death_place = ""
                 burial_place = ""
-                family_where_child = 0
-                family_where_spouse = 0
-                family_id = 0
-                husband_id = 0
-                wife_id = 0
-                child_id = 0
+                family_where_child = -1
+                family_where_spouse = -1
+                family_id = -1
+                husband_id = -1
+                wife_id = -1
+                child_id = -1
                 sex = ""
                 tag = ""
             else:
@@ -132,13 +132,13 @@ def process_ged_file():
                 husband = s[9:]
                 husband = husband[0:len(husband)-1]
                 husband_id = int(husband)
-                if individuals[husband_id].family_where_spouse == 0:
+                if individuals[husband_id].family_where_spouse == -1:
                     individuals[husband_id].family_where_spouse = family_id
             if tag == "WIFE":
                 wife = s[9:]
                 wife = wife[0:len(wife)-1]
                 wife_id = int(wife)
-                if individuals[wife_id].family_where_spouse == 0:
+                if individuals[wife_id].family_where_spouse == -1:
                     individuals[wife_id].family_where_spouse = family_id
             if tag == "CHIL":
                 child = s[9:]
@@ -291,7 +291,7 @@ def get_birth_year(id):
 
 def get_family_where_child(id):
     if not id in individuals.keys():
-        return 0
+        return -1
     return individuals[id].family_where_child
 
 def get_name(i):
@@ -323,7 +323,7 @@ def read_families():
     file = open('families.txt','r')
     families.clear()
     s = file.readline()
-    add_family("", 0, 0, 0, "", "")
+    add_family("", -1, 0, 0, "", "")
     while True:
         s = file.readline()
         s = s.strip()
@@ -361,17 +361,17 @@ def write_families():
 
 def get_father_id(id):
     family_id = get_family_where_child(id)
-    if family_id != 0:
+    if family_id != -1:
         return families[family_id].husband_id
     else:
-        return 0
+        return -1
 
 def get_mother_id(id):
     family_id = get_family_where_child(id)
     if family_id != "":
         return families[family_id].wife_id
     else:
-        return 0
+        return -1
 
 class children_class(object):
     def __init__(self, family_id=None, child_id=None, tag=None):
@@ -387,7 +387,7 @@ def read_children():
     file = open('children.txt','r')
     children.clear()
     s = file.readline()
-    add_child(0, 0, "")
+    add_child(-1, -1, "")
     while True:
         s = file.readline()
         s = s.strip()
@@ -428,7 +428,7 @@ label_width = 30
 field_width = 90
 
 ged_file_name = ''
-initial_family = 0
+initial_family = -1
 title_page_required = ''
 title1 = ''
 title2 = ''
@@ -441,10 +441,10 @@ document_images_required = ''
 website_path = ''
 country_to_remove1 = ''
 country_to_remove2 = ''
-person1 = 0
-person2 = 0
-person3 = 0
-person4 = 0
+person1 = -1
+person2 = -1
+person3 = -1
+person4 = -1
 spaces = '                                            '
 
 field = ["GED File", "Page Size", "Initial Family", "Title Page Required", "Contents Required", \
